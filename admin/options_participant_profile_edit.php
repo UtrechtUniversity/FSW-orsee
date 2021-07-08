@@ -93,6 +93,7 @@ if ($proceed) {
     javascript__tooltip_prepare();
 
     echo '<FORM action="'.thisdoc().'" method="POST">';
+    echo addCsrfTokenToForm();
     echo '<INPUT type="hidden" name="mysql_column_name" value="'.$field_name.'">';
     echo csrf__field();
     echo '<TABLE class="or_formtable">

@@ -69,6 +69,7 @@ if ($proceed) {
     }
 
     echo '<FORM action="lang_edit.php">
+    	' . addCsrfTokenToForm() . '
         <INPUT type=hidden name="el" value="'.$el.'">
         <INPUT type=hidden name="letter" value="'.$letter.'">
         <INPUT type=text name="search" size=20 maxlength=200 value="'.$search.'">
@@ -92,6 +93,7 @@ if ($proceed) {
     echo '<BR><BR>'.lang('symbols').': '.$number.'<BR><BR>
 
         <FORM action="lang_edit.php" method=post>
+        ' . addCsrfTokenToForm() . '
         <INPUT type=hidden name="el" value="'.$el.'">
         <INPUT type=hidden name="letter" value="'.$letter.'">
         <INPUT type=hidden name="search" value="'.$search.'">
