@@ -82,8 +82,12 @@ function log__link() {
         }
     $link='<A HREF="'.thisdoc().'?';
     foreach ($post as $key=>$value) {
-        $link.=$key.'='.urlencode($value).'&';
-        }
+        // $key can contain malicious info
+        $correctedKey = str_replace(array('&','<','>','"',"'",'/'),
+            array('&amp;','&lt;','&gt;','&quot;','&#x27;','&#x2F;'),
+            $key);
+        $link.=  $correctedKey.'='.urlencode( $value ).'&';
+    }
     $link.='">';
     return $link;
 }

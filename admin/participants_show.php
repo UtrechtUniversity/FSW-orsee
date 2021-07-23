@@ -268,7 +268,6 @@ if ($proceed) {
         echo '</TD></TR></TABLE>';
         echo '<BR><BR>';
         $query_array=query__get_query_array($posted_query['query']);
-        //dump_array($query_array);
 
         if ($active) {
             $active_clause=array('query'=>participant_status__get_pquery_snippet("eligible_for_experiments"),'pars'=>array());
