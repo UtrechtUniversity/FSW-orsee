@@ -20,7 +20,7 @@ if ($proceed) {
 $createNewCsrfToken = false;
 $createRandomString = false;
 
-$_REQUEST = stripTagsRequestArray($_REQUEST, array('requested_url', 'sign'));
+$_REQUEST = stripTagsRequestArray($_REQUEST, array('requested_url', 'sign', 'experimenter', 'experimenter_mail'));
 if(isset($_REQUEST['requested_url'])) {
     // ruin possible XSS attempts
     $_REQUEST['requested_url'] = str_replace( array("'", '"', '(', ')', ':', ';', '='), '',$_REQUEST['requested_url']);
