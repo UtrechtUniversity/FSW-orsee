@@ -273,6 +273,7 @@ function javascript__email_popup() {
                         opacity: 0.8
                     });
             }
+
             $(document).ready(function(){
                 $("#popupIframe").on("load", function(){
                     $("#popupIframe").fadeIn(100);

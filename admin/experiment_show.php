@@ -228,6 +228,7 @@ if ($proceed) {
     echo '<center>
         <BR>
         <FORM action="'.thisdoc().'" method="POST">
+        ' . addCsrfTokenToForm() . '
         <INPUT type=hidden name="experiment_id" value="'.$experiment_id.'">
         <table class="or_panel">
         <TR>
