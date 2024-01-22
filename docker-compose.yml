@@ -1,19 +1,20 @@
 version: "3.2"
 services:
   orsee.docker:
-    user: "1000:1000"
     container_name: orsee
-    hostname: orsee.docker
+    hostname: orsee.docker.dev
     build:
       context: .
       dockerfile: docker/orsee.dockerfile
-    ports:
-      - "9018:9018"
     volumes:
       - ./:/var/www
+    environment:
+      - VIRTUAL_HOST=orsee.docker.dev
+      - VIRTUAL_PROTO=https
+      - VIRTUAL_PORT=443
     networks:
       - default
-      - hs-appteam-local-dev
+      - hts-appteam-local-dev
   mariadb:
     container_name: orsee_mariadb
     image: "mariadb:latest"
@@ -28,5 +29,5 @@ services:
       MYSQL_USER: "orsee"
       MYSQL_PASSWORD: "secret"
 networks:
-  hs-appteam-local-dev:
+  hts-appteam-local-dev:
     external: true
