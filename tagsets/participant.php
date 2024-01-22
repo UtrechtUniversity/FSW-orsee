@@ -700,6 +700,7 @@ function participant__show_form($edit,$button_title="",$errors=array(),$admin=fa
     $out=array(); $tout=array();
 
     echo '<FORM action="'.thisdoc().'" method="POST">';
+    echo addCsrfTokenToForm();
     echo '<table cellspacing="0" cellpadding="10em" border="0">
             <TR><TD>';
     participant__show_inner_form($edit,$errors,$admin);
@@ -836,6 +837,8 @@ function participant__show_admin_form($edit,$button_title="",$errors=array(),$ex
 
     echo '<FORM action="'.thisdoc().'" method="POST">';
 
+    echo addCsrfTokenToForm();
+
     echo '<table border="0">';
     echo '<TR><TD valign="top">';
     echo '<TABLE class="or_formtable" style="width: 100%; height: 100%; max-width: 100%"><TR><TD>';
@@ -935,14 +938,14 @@ function participant__password_form_fields($new=false,$provided=false) {
     if ($new) $out.=lang('new_password'); else $out.=lang('password');
     $out.='<br>';
     if ($provided) $out.='***'.lang('provided').'***';
-    else $out.='<input type="password" name="password" size="20" max-length="40"><br>
+    else $out.='<input type="password" autocomplete="off" name="password" size="20" max-length="40"><br>
                 <font class="small">'.lang('participant_password_note').'</font>';
     $out.='</td></tr>
         <tr><td>';
     if ($new) $out.=lang('repeat_new_password'); else $out.=lang('repeat_password');
     $out.='<br>';
     if ($provided) $out.='***'.lang('provided').'***';
-    else $out.='<input type="password" name="password2" size="20" max-length="40">';
+    else $out.='<input type="password" autocomplete="off" name="password2" size="20" max-length="40">';
     $out.='</td></tr>';
     return $out;
 }
