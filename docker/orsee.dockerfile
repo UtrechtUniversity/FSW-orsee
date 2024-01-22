@@ -32,9 +32,6 @@ RUN a2enmod headers
 # install additional PHP extensions
 RUN docker-php-ext-install pdo_mysql mysqli soap
 
-# expose port
-EXPOSE 9018
-
 # copy httpd files
 COPY ./docker/httpd.conf /etc/apache2/sites-enabled/000-default.conf
 
