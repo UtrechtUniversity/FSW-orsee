@@ -178,7 +178,7 @@ if ($proceed) {
     show_message();
 
     // form
-    echo '  <FORM action="lang_item_edit.php" METHOD=POST> ' . addCsrfTokenToForm() . '
+    echo '  <FORM action="lang_item_edit.php" METHOD=POST>
         <INPUT type=hidden name="id" value="'.$id.'">
         <INPUT type=hidden name="item" value="'.$item.'">
         '.csrf__field().'

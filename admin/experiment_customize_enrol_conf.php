@@ -171,7 +171,6 @@ if ($proceed) {
         // form
 
          echo '<FORM action="'.thisdoc().'" method="post">
-                ' . addCsrfTokenToForm() .'
                 <INPUT type=hidden name="experiment_id" value="'.$experiment_id.'">
                 <INPUT type=hidden name="id" value="'.$experiment_mail['lang_id'].'">
                 '.csrf__field().'
