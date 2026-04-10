@@ -69,7 +69,7 @@ if ($proceed) {
     }
 
     echo '<FORM action="lang_edit.php">
-    	' . addCsrfTokenToForm() . '
+    	' . csrf__field() . '
         <INPUT type=hidden name="el" value="'.$el.'">
         <INPUT type=hidden name="letter" value="'.$letter.'">
         <INPUT type=text name="search" size=20 maxlength=200 value="'.$search.'">

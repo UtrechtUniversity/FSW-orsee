@@ -16,17 +16,6 @@ if ($proceed) {
         redirect("errors/error_temporaly_disabled.php");
 }
 
-
-$createNewCsrfToken = false;
-
-$_REQUEST = stripTagsRequestArray($_REQUEST, array('requested_url', 'sign'));
-if(isset($_REQUEST['requested_url'])) {
-    $_REQUEST['requested_url'] = strip_tags( $_REQUEST['requested_url']);
-}
-
-
-
-
 if ($proceed) {
     site__database_config();
     $settings=load_settings();
@@ -45,19 +34,6 @@ if ($proceed) {
         true,
         true
     );
-
-    // if only csrf security when logging in is wanted, take out commented section in next line
-    if( $_SERVER['REQUEST_METHOD'] == 'POST') {// AND getRefererFileName() == 'admin_login' ) {
-        if(!isset($_REQUEST["csrf_token"])) {
-            exit;
-        }
-        elseif(! hash_equals($_SESSION["csrf_token"], $_REQUEST["csrf_token"])) {
-            exit;
-        }
-        else { // after successful comparison recreate token
-            $createNewCsrfToken = true;
-        }
-    }
 
     if (isset($_SESSION['expadmindata'])) $expadmindata=$_SESSION['expadmindata']; else $expadmindata=array();
 

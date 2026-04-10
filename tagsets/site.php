@@ -17,12 +17,6 @@ function stripTagsRequestArray($var,$exempt=array()) {
     return $var;
 }
 
-
-
-function addCsrfTokenToForm() {
-    return '<input type="hidden" name="csrf_token" value="' . $_SESSION['csrf_token'] . '"><input type="hidden" name="random_string" value="' . $_SESSION['csrf_token'] . '">';
-}
-
 function getRefererFileName()
 {
     $ar = pathinfo($_SERVER['HTTP_REFERER']);

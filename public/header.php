@@ -32,32 +32,6 @@ if ($proceed) {
     );
 }
 
-$createNewCsrfToken = false;
-
-
-// if only csrf security when logging in is wanted, take out commented section in next line
-if( $_SERVER['REQUEST_METHOD'] == 'POST' AND getRefererFileName() == 'participant_login' ) {
-    if(!isset($_REQUEST["csrf_token"])) {
-        exit;
-    }
-    elseif(! hash_equals($_SESSION["csrf_token"], $_REQUEST["csrf_token"])) { //$_REQUEST["csrf_token"] != $_SESSION["csrf_token"]) {
-        exit;
-    }
-    else { // after successful comparison recreate token
-        $createNewCsrfToken = true;
-    }
-}
-
-
-if(!isset($_SESSION['csrf_token']) OR $createNewCsrfToken) {
-    // new token to be taken into each form
-    if (function_exists('mcrypt_create_iv')) {
-        $_SESSION['csrf_token'] = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
-    } else {
-        $_SESSION['csrf_token'] = bin2hex(openssl_random_pseudo_bytes(32));
-    }
-}
-
 if ($proceed) {
     if ($settings['stop_public_site']=="y" && !isset($expadmindata['adminname']) && !(thisdoc()=="disabled.php"))
         redirect("public/disabled.php");
