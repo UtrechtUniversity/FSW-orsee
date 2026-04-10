@@ -45,15 +45,6 @@ if ($proceed) {
 }
 
 if ($proceed) {
-    if(!isset($_SESSION['csrf_token']) OR $createNewCsrfToken) {
-        // new token to be taken into each form
-        if (function_exists('mcrypt_create_iv')) {
-            $_SESSION['csrf_token'] = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
-        } else {
-            $_SESSION['csrf_token'] = bin2hex(openssl_random_pseudo_bytes(32));
-        }
-    }
-
     if (isset($_REQUEST['new_language'])) {
         $expadmindata['language']=$_REQUEST['new_language'];
         $_SESSION['expadmindata']=$expadmindata;
