@@ -75,12 +75,10 @@ if ($proceed) {
     $lang=load_language($_SESSION['pauthdata']['language']);
 }
 
-if ($proceed) {
-    if (!in_array(thisdoc(),array('participant_create.php','captcha.php'))) {
-        unset ($_SESSION['subpool_id']);
-        unset ($_SESSION['rules']);
-    }
-}
+// Note: $_SESSION['subpool_id'] and $_SESSION['rules'] are only cleared
+// within participant_create.php itself (on cancel or after successful registration).
+// Clearing them here on every other page caused race conditions when browsers
+// auto-load pages like index.php concurrently with participant_create.php.
 
 if ($proceed) {
     // require participant login for the following pages
