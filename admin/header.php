@@ -7,12 +7,7 @@ include ("../config/requires.php");
 
 error_reporting(0);  // shut down all error reporting
 
-error_reporting(0);  // shut down all error reporting
-
 $proceed=true;
-
-header('X-Frame-Options: SAMEORIGIN');
-
 
 header('X-Frame-Options: SAMEORIGIN');
 
@@ -70,21 +65,13 @@ if ($proceed) {
 
 if ($proceed) {
 
-    if(!isset($_SESSION['csrf_token']) OR $createNewCsrfToken) {
+    if(!isset($_SESSION['csrf_token'])) {
         // new token to be taken into each form
         if (function_exists('mcrypt_create_iv')) {
             $_SESSION['csrf_token'] = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
         } else {
             $_SESSION['csrf_token'] = bin2hex(openssl_random_pseudo_bytes(32));
         }
-    }
-    
-    if($createRandomString){
-    
-   		$length = random_int(1, 100);
-   		$alpha_numeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-   		
-   		$_SESSION['csrf_token'] = substr(str_shuffle(str_repeat($alpha_numeric, $length)), 0, $length);    
     }
 
     if (isset($expadmindata['pw_update_requested']) && $expadmindata['pw_update_requested']  && $document!="admin_pw.php") {

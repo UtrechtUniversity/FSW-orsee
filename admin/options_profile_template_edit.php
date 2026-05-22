@@ -64,7 +64,6 @@ if ($proceed) {
 
     echo '
         <FORM action="options_profile_template_edit.php" METHOD=POST>
-        ' . addCsrfTokenToForm() . '
         <INPUT type=hidden name="item_name" value="'.$item_name.'">
         '.csrf__field().'
         <TABLE width="95%" border=0 cellspacing="0">
@@ -79,7 +78,6 @@ if ($proceed) {
 
     // form
     echo '  <FORM action="options_profile_template_edit.php" METHOD=POST>
-        ' . addCsrfTokenToForm() . '
         <INPUT type=hidden name="item_name" value="'.$item_name.'">
         <INPUT type=hidden name="subpool_id" value="'.$subpool_id.'">
         '.csrf__field().'

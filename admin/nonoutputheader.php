@@ -16,9 +16,6 @@ if ($proceed) {
         redirect("errors/error_temporaly_disabled.php");
 }
 
-
-$createNewCsrfToken = false;
-
 $_REQUEST = stripTagsRequestArray($_REQUEST, array('requested_url', 'sign'));
 if(isset($_REQUEST['requested_url'])) {
     $_REQUEST['requested_url'] = strip_tags( $_REQUEST['requested_url']);
@@ -56,7 +53,7 @@ if ($proceed) {
 }
 
 if ($proceed) {
-    if(!isset($_SESSION['csrf_token']) OR $createNewCsrfToken) {
+    if(!isset($_SESSION['csrf_token'])) {
         // new token to be taken into each form
         if (function_exists('mcrypt_create_iv')) {
             $_SESSION['csrf_token'] = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
