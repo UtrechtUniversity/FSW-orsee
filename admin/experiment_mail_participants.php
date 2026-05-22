@@ -44,6 +44,9 @@ if ($proceed) {
 
 
     if ($action) {
+        if (!csrf__validate_request_message()) {
+            redirect ('admin/experiment_mail_participants.php?experiment_id='.$experiment_id);
+        }
 
         $sitem=$_REQUEST;
         $sitem['content_type']='experiment_invitation_mail';
@@ -110,6 +113,7 @@ if ($proceed) {
             ' . addCsrfTokenToForm() . '
             <INPUT type=hidden name="experiment_id" value="'.$experiment_id.'">
             <INPUT type=hidden name="id" value="'.$experiment_mail['lang_id'].'">
+            '.csrf__field().'
 
             <TABLE class="or_formtable" style="width: 80%;">';
 

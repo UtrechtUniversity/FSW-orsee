@@ -7,7 +7,12 @@ include ("../config/requires.php");
 
 error_reporting(0);  // shut down all error reporting
 
+error_reporting(0);  // shut down all error reporting
+
 $proceed=true;
+
+header('X-Frame-Options: SAMEORIGIN');
+
 
 header('X-Frame-Options: SAMEORIGIN');
 
@@ -16,9 +21,6 @@ if ($proceed) {
     if ($settings__stop_admin_site=="y" && $document!="error_temporarily_disabled.php")
         redirect("admin/error_temporarily_disabled.php");
 }
-
-$createNewCsrfToken = false;
-$createRandomString = false;
 
 $_REQUEST = stripTagsRequestArray($_REQUEST, array('requested_url', 'sign', 'experimenter', 'experimenter_mail'));
 if(isset($_REQUEST['requested_url'])) {
@@ -33,12 +35,7 @@ if ($proceed) {
     $settings['style']=$settings['orsee_admin_style'];
     $color=load_colors();
 
-    session_set_save_handler("orsee_session_open",
-                 "orsee_session_close",
-                 "orsee_session_read",
-                 "orsee_session_write",
-                 "orsee_session_destroy",
-                 "orsee_session_gc");
+    orsee_session_register_handler();
 
     session_start();
 
@@ -53,24 +50,6 @@ if ($proceed) {
         true
     );
 
-    // if only csrf security when logging in is wanted, take out commented section in next line
-    if( $_SERVER['REQUEST_METHOD'] == 'POST') {// AND getRefererFileName() == 'admin_login' ) {
-        if(!isset($_REQUEST["csrf_token"])) {
-            exit;
-        }
-        elseif(! hash_equals($_SESSION["csrf_token"], $_REQUEST["csrf_token"])) {
-            exit;
-        }
-        else { // after successful comparison recreate token
-            $createNewCsrfToken = true;
-        }
-    }
-    
-    // Added security for GET requests, as those will not trigger a CSRF token update
-    if( $_SERVER['REQUEST_METHOD'] == 'GET' OR !$randomString) {
-    	$createRandomString = true;
-    }
-
     if (isset($_SESSION['expadmindata'])) {
         $expadmindata = $_SESSION['expadmindata'];
     }
@@ -79,7 +58,9 @@ if ($proceed) {
     }
 
     $tmparr=explode("/",$_SERVER['PHP_SELF']); $tmpnum=count($tmparr);
-    $requested_url=$tmparr[$tmpnum-2]."/".$tmparr[$tmpnum-1].'?'.$_SERVER['QUERY_STRING'];
+    if (isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING']) $query_string='?'.$_SERVER['QUERY_STRING'];
+    else $query_string='';
+    $requested_url=$tmparr[$tmpnum-2]."/".$tmparr[$tmpnum-1].$query_string;
 
     // Check for login
     if ((!(isset($expadmindata['adminname']) && $expadmindata['adminname'])) && $document!="admin_login.php") {

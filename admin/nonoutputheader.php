@@ -32,7 +32,7 @@ if ($proceed) {
     $settings=load_settings();
     $settings['style']=$settings['orsee_admin_style'];
     $color=load_colors();
-    session_set_save_handler("orsee_session_open", "orsee_session_close", "orsee_session_read", "orsee_session_write", "orsee_session_destroy", "orsee_session_gc");
+    orsee_session_register_handler();
     session_start();
 
     $currentCookieParams = session_get_cookie_params();
@@ -45,19 +45,6 @@ if ($proceed) {
         true,
         true
     );
-
-    // if only csrf security when logging in is wanted, take out commented section in next line
-    if( $_SERVER['REQUEST_METHOD'] == 'POST') {// AND getRefererFileName() == 'admin_login' ) {
-        if(!isset($_REQUEST["csrf_token"])) {
-            exit;
-        }
-        elseif(! hash_equals($_SESSION["csrf_token"], $_REQUEST["csrf_token"])) {
-            exit;
-        }
-        else { // after successful comparison recreate token
-            $createNewCsrfToken = true;
-        }
-    }
 
     if (isset($_SESSION['expadmindata'])) $expadmindata=$_SESSION['expadmindata']; else $expadmindata=array();
 
